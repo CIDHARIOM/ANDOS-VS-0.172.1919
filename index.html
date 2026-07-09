@@ -2209,18 +2209,36 @@
       setTimeout(() => el.classList.remove('show'), 4000);
     }
 
-    function showSuccess(title, text) {
-      document.getElementById('successTitle').textContent = title;
-      document.getElementById('successText').textContent = text;
-      document.getElementById('successOverlay').classList.add('show');
+        function showSuccess(title, text) {
+      const overlay = document.getElementById('successOverlay');
+      const titleEl = document.getElementById('successTitle');
+      const textEl = document.getElementById('successText');
+      const bar = document.getElementById('redirectBar');
+
+      // डार्क मोड और प्रीमियम ब्लर इफ़ेक्ट
+      overlay.style.background = 'rgba(0, 0, 0, 0.9)';
+      overlay.style.backdropFilter = 'blur(25px)';
+      titleEl.style.color = '#ffffff';
+      titleEl.textContent = 'Authentication Verified';
+      textEl.style.color = '#60a5fa';
+      textEl.textContent = 'Entering your digital space...';
+      
+      overlay.classList.add('show');
+
+      // सुपर-फ़ास्ट नियोन प्रोग्रेस बार
       setTimeout(() => {
-        document.getElementById('redirectBar').classList.add('active');
-      }, 300);
-      // Strict redirect after full 2200ms animation cycle completes
+        bar.style.transition = 'width 1s cubic-bezier(0.16,1,0.3,1)';
+        bar.style.background = 'linear-gradient(90deg, #2563eb, #60a5fa)';
+        bar.style.boxShadow = '0 0 15px rgba(59, 130, 246, 0.6)';
+        bar.classList.add('active');
+      }, 100);
+
+      // ठीक 1.2 सेकंड बाद स्मूथ डैशबोर्ड एंट्री
       setTimeout(() => {
         window.location.href = "dashboard.html";
-      }, 2200);
-    }
+      }, 1200);
+        }
+    
 
     function handleLogin(e) {
       e.preventDefault();
